@@ -1,36 +1,39 @@
 import random
-previous_guess = []
-secret_num = random.randint(0, 100)
-print(secret_num)
+
+secret_num = random.randint(1, 100)
+previous_guess = []  
+total_tries = 0  
 
 def guess_game(user_guess):
-    total_tries: int = 0
+    global total_tries 
     
+    if user_guess in previous_guess:
+        print("You already guessed this number. Try again.")
+        return 
+   
     previous_guess.append(user_guess)
-    if user_guess not in previous_guess:    
-        total_tries +=1
+    total_tries += 1  
 
-    # while (secret_num != user_guess):
     if user_guess > secret_num:
-            print("Your guess is too large. Try again")
-            get_userInput()
+        print("Your guess is too large. Try again.")
     elif user_guess < secret_num:
-            print("Your guess is too small. Try again")
-            get_userInput()
-    elif  user_guess in previous_guess:
-            print("You already guessed this number.Try again")
-            get_userInput()
+        print("Your guess is too small. Try again.")
     else:
-            print(f"You have correctly guessed the secret number {secret_num} in {total_tries} tries")
-            print(previous_guess)
+        print(f"Congratulations! You guessed the secret number {secret_num} in {total_tries} tries.")
+        print(f"Previous guesses: {previous_guess}")
 
 
-def get_userInput():
-    try:
-        num = int(input("Guess a secret number between 1 to 100: "))
-        guess_game(num)
-    except ValueError:
-        print("Invalid input")
-        get_userInput()
+def get_user_input():
+    while True:
+        try:
+           
+            num = int(input("Guess a secret number between 1 and 100: "))
+            guess_game(num)  
+         
+            if num == secret_num:
+                break
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
 
-get_userInput()
+
+get_user_input()
