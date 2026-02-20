@@ -5,7 +5,7 @@ def digit_to_list(digit):
     while digit > 0:
         num = digit % 10
         digit_list.append(num)
-        digit = digit // 10
+        digit = digit // 10     #remove last digit
     digit_list.reverse()
 
     return digit_list
